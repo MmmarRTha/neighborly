@@ -13,7 +13,7 @@ defmodule NeighborlyWeb.EffortLive do
       <h1>Community Love</h1>
 
       <section>
-        <button phx-click="add" phx-value-quantity="5">
+        <button phx-click="add" phx-value-quantity="1">
           +
         </button>
         <div>
@@ -28,6 +28,11 @@ defmodule NeighborlyWeb.EffortLive do
           {@responders * @minutes_per_responder}
         </div>
       </section>
+
+      <form phx-submit="recalculate">
+        <label for="">Minutes Per Responder:</label>
+        <input type="number" name="minutes" value={@minutes_per_responder} />
+      </form>
     </div>
     """
   end
@@ -37,6 +42,11 @@ defmodule NeighborlyWeb.EffortLive do
     # socket = assign(socket, :responders, responders)
 
     socket = update(socket, :responders, &(&1 + String.to_integer(quantity)))
+    {:noreply, socket}
+  end
+
+  def handle_event("recalculate", %{"minutes" => minutes_per_responder}, socket) do
+    socket = assign(socket, :minutes_per_responder, String.to_integer(minutes_per_responder))
     {:noreply, socket}
   end
 end
