@@ -2,6 +2,9 @@ defmodule NeighborlyWeb.EffortLive do
   use NeighborlyWeb, :live_view
 
   def mount(_params, _session, socket) do
+    if connected?(socket) do
+      Process.send_after(self(), :tick, 2000)
+    end
     socket = assign(socket, responders: 0, minutes_per_responder: 10)
     {:ok, socket}
   end
@@ -48,5 +51,10 @@ defmodule NeighborlyWeb.EffortLive do
   def handle_event("recalculate", %{"minutes" => minutes_per_responder}, socket) do
     socket = assign(socket, :minutes_per_responder, String.to_integer(minutes_per_responder))
     {:noreply, socket}
+  end
+
+  def handle_info(:tick, socket) do
+    Process.send_after(self(), :tick, 2000)
+    {:noreply, update(socket, :responders, &(&1 + 10))}
   end
 end
