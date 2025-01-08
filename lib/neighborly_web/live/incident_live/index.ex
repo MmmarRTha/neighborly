@@ -2,6 +2,7 @@ defmodule NeighborlyWeb.IncidentLive.Index do
   use NeighborlyWeb, :live_view
 
   alias Neighborly.Incidents
+  import NeighborlyWeb.CustomComponets
 
   def mount(_params, _session, socket) do
     socket = assign(socket, :incidents, Incidents.list_incidents())
@@ -12,13 +13,14 @@ defmodule NeighborlyWeb.IncidentLive.Index do
     ~H"""
     <div class="incident-index">
       <div class="incidents">
-        <.incident_card :for={incident <- @incidents} incident={incident}/>
+        <.incident_card :for={incident <- @incidents} incident={incident} />
       </div>
     </div>
     """
   end
 
   attr :incident, Neighborly.Incident, required: true
+
   def incident_card(assigns) do
     ~H"""
     <div class="card">
@@ -30,15 +32,6 @@ defmodule NeighborlyWeb.IncidentLive.Index do
           {@incident.priority}
         </div>
       </div>
-    </div>
-    """
-  end
-
-  attr :status, :atom, required: true, values: [:pending, :resolved, :canceled]
-  def badge(assigns) do
-    ~H"""
-    <div class="inline-block px-2 py-1 text-xs font-medium uppercase border rounded-md text-lime-600 border-lime-600">
-      {@status}
     </div>
     """
   end
