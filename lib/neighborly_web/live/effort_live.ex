@@ -5,7 +5,8 @@ defmodule NeighborlyWeb.EffortLive do
     if connected?(socket) do
       Process.send_after(self(), :tick, 2000)
     end
-    socket = assign(socket, responders: 0, minutes_per_responder: 10)
+
+    socket = assign(socket, responders: 0, minutes_per_responder: 10, page_title: "Effort")
     {:ok, socket}
   end
 
