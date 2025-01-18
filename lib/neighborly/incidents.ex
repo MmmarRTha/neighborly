@@ -39,4 +39,8 @@ defmodule Neighborly.Incidents do
   def get_incident(id) when is_binary(id) do
     id |> String.to_integer() |> get_incident()
   end
+
+  def urgent_incidents(incident) do
+    list_incidents() |> List.delete(incident)
+  end
 end
