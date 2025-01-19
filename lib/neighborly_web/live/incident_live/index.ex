@@ -29,7 +29,7 @@ defmodule NeighborlyWeb.IncidentLive.Index do
     """
   end
 
-  attr :incident, Neighborly.Incident, required: true
+  attr :incident, Neighborly.Incidents.Incident, required: true
 
   def incident_card(assigns) do
     ~H"""
