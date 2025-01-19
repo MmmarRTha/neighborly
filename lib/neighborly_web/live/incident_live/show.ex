@@ -8,7 +8,7 @@ defmodule NeighborlyWeb.IncidentLive.Show do
     {:ok, socket}
   end
 
-  def handle_params(%{"id" => id}, uri, socket) do
+  def handle_params(%{"id" => id}, _uri, socket) do
     incident = Incidents.get_incident(id)
 
     socket =
