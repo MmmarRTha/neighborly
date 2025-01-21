@@ -7,7 +7,7 @@ defmodule NeighborlyWeb.IncidentLive.Index do
   def mount(_params, _session, socket) do
     socket =
       socket
-      |> assign(:incidents, Incidents.list_incidents())
+      |> stream(:incidents, Incidents.list_incidents())
       |> assign(:page_title, "Incidents")
 
     {:ok, socket}
@@ -22,18 +22,23 @@ defmodule NeighborlyWeb.IncidentLive.Index do
           Thanks for pitching in. {vibe}
         </:tagline>
       </.headline>
-      <div class="incidents">
-        <.incident_card :for={incident <- @incidents} incident={incident} />
+      <div class="incidents" id="incidents" phx-update="stream">
+        <.incident_card
+          :for={{dom_id, incident} <- @streams.incidents}
+          incident={incident}
+          id={dom_id}
+        />
       </div>
     </div>
     """
   end
 
   attr :incident, Neighborly.Incidents.Incident, required: true
+  attr :id, :string, required: true
 
   def incident_card(assigns) do
     ~H"""
-    <.link navigate={~p"/incidents/#{@incident}"}>
+    <.link navigate={~p"/incidents/#{@incident}"} id={@id}>
       <div class="card">
         <img src={@incident.image_path} alt="image" />
         <h2>{@incident.name}</h2>
