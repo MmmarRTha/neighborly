@@ -41,8 +41,8 @@ defmodule NeighborlyWeb.IncidentLive.Index do
 
   def filter_form(assigns) do
     ~H"""
-    <.form for={@form}>
-      <.input field={@form[:q]} placeholder="Search..." autocomplete="off" />
+    <.form for={@form} id="filter-form" phx-change="filter">
+      <.input field={@form[:q]} placeholder="Search..." autocomplete="off" phx-debounce="500" />
 
       <.input
         type="select"
@@ -51,7 +51,16 @@ defmodule NeighborlyWeb.IncidentLive.Index do
         options={Incidents.status_options()}
       />
 
-      <.input type="select" field={@form[:sort_by]} prompt="Sort By" options={[:name, :priority]} />
+      <.input
+        type="select"
+        field={@form[:sort_by]}
+        prompt="Sort By"
+        options={[
+          Name: "name",
+          "Priority: High to Low": "priority_desc",
+          "Priority: Low to High": "priority_asc"
+        ]}
+      />
     </.form>
     """
   end
@@ -74,5 +83,14 @@ defmodule NeighborlyWeb.IncidentLive.Index do
       </div>
     </.link>
     """
+  end
+
+  def handle_event("filter", params, socket) do
+    socket =
+      socket
+      |> assign(:form, to_form(params))
+      |> stream(:incidents, Incidents.filter_incidents(params), reset: true)
+
+    {:noreply, socket}
   end
 end
