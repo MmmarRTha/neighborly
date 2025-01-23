@@ -28,4 +28,8 @@ defmodule Neighborly.Incidents do
     |> limit(3)
     |> Repo.all()
   end
+
+  def status_options do
+    Ecto.Enum.values(Incident, :status)
+  end
 end

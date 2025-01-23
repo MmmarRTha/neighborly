@@ -7,8 +7,9 @@ defmodule NeighborlyWeb.IncidentLive.Index do
   def mount(_params, _session, socket) do
     socket =
       socket
-      |> stream(:incidents, Incidents.filter_incidents())
+      |> stream(:incidents, Incidents.list_incidents())
       |> assign(:page_title, "Incidents")
+      |> assign(:form, to_form(%{}))
 
     {:ok, socket}
   end
@@ -22,6 +23,9 @@ defmodule NeighborlyWeb.IncidentLive.Index do
           Thanks for pitching in. {vibe}
         </:tagline>
       </.headline>
+
+      <.filter_form form={@form} />
+
       <div class="incidents" id="incidents" phx-update="stream">
         <.incident_card
           :for={{dom_id, incident} <- @streams.incidents}
@@ -30,6 +34,25 @@ defmodule NeighborlyWeb.IncidentLive.Index do
         />
       </div>
     </div>
+    """
+  end
+
+  attr :form, :map
+
+  def filter_form(assigns) do
+    ~H"""
+    <.form for={@form}>
+      <.input field={@form[:q]} placeholder="Search..." autocomplete="off" />
+
+      <.input
+        type="select"
+        field={@form[:status]}
+        prompt="Status"
+        options={Incidents.status_options()}
+      />
+
+      <.input type="select" field={@form[:sort_by]} prompt="Sort By" options={[:name, :priority]} />
+    </.form>
     """
   end
 
