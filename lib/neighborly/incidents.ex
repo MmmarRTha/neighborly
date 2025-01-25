@@ -27,21 +27,14 @@ defmodule Neighborly.Incidents do
     where(query, [i], ilike(i.name, ^"%#{q}%"))
   end
 
-  defp sort(query, "name") do
-    order_by(query, :name)
+  defp sort(query, sort_by) do
+    order_by(query, ^sort_option(sort_by))
   end
 
-  defp sort(query, "priority_desc") do
-    order_by(query, desc: :priority)
-  end
-
-  defp sort(query, "priority_asc") do
-    order_by(query, asc: :priority)
-  end
-
-  defp sort(query, _) do
-    order_by(query, :id)
-  end
+  defp sort_option("name"), do: :name
+  defp sort_option("priority_desc"), do: [desc: :priority]
+  defp sort_option("priority_asc"), do: [asc: :priority]
+  defp sort_option(_), do: :id
 
   def get_incident!(id) do
     Repo.get!(Incident, id)

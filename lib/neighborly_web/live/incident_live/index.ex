@@ -27,6 +27,9 @@ defmodule NeighborlyWeb.IncidentLive.Index do
       <.filter_form form={@form} />
 
       <div class="incidents" id="incidents" phx-update="stream">
+        <div id="empty" class="hidden no-results only:block">
+          No incidents found. Try changing your filters.
+        </div>
         <.incident_card
           :for={{dom_id, incident} <- @streams.incidents}
           incident={incident}
