@@ -9,6 +9,7 @@ defmodule NeighborlyWeb.IncidentLive.Index do
       socket
       |> stream(:incidents, Incidents.list_incidents())
       |> assign(:page_title, "Incidents")
+      |> assign(:form, to_form(%{}))
 
     {:ok, socket}
   end
@@ -22,7 +23,13 @@ defmodule NeighborlyWeb.IncidentLive.Index do
           Thanks for pitching in. {vibe}
         </:tagline>
       </.headline>
+
+      <.filter_form form={@form} />
+
       <div class="incidents" id="incidents" phx-update="stream">
+        <div id="empty" class="hidden no-results only:block">
+          No incidents found. Try changing your filters.
+        </div>
         <.incident_card
           :for={{dom_id, incident} <- @streams.incidents}
           incident={incident}
@@ -30,6 +37,34 @@ defmodule NeighborlyWeb.IncidentLive.Index do
         />
       </div>
     </div>
+    """
+  end
+
+  attr :form, :map
+
+  def filter_form(assigns) do
+    ~H"""
+    <.form for={@form} id="filter-form" phx-change="filter">
+      <.input field={@form[:q]} placeholder="Search..." autocomplete="off" phx-debounce="500" />
+
+      <.input
+        type="select"
+        field={@form[:status]}
+        prompt="Status"
+        options={Incidents.status_options()}
+      />
+
+      <.input
+        type="select"
+        field={@form[:sort_by]}
+        prompt="Sort By"
+        options={[
+          Name: "name",
+          "Priority: High to Low": "priority_desc",
+          "Priority: Low to High": "priority_asc"
+        ]}
+      />
+    </.form>
     """
   end
 
@@ -51,5 +86,14 @@ defmodule NeighborlyWeb.IncidentLive.Index do
       </div>
     </.link>
     """
+  end
+
+  def handle_event("filter", params, socket) do
+    socket =
+      socket
+      |> assign(:form, to_form(params))
+      |> stream(:incidents, Incidents.filter_incidents(params), reset: true)
+
+    {:noreply, socket}
   end
 end
