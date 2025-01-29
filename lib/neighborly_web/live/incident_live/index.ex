@@ -11,7 +11,7 @@ defmodule NeighborlyWeb.IncidentLive.Index do
   def handle_params(params, _uri, socket) do
     socket =
       socket
-      |> stream(:incidents, Incidents.filter_incidents(params))
+      |> stream(:incidents, Incidents.filter_incidents(params), reset: true)
       |> assign(:page_title, "Incidents")
       |> assign(:form, to_form(params))
 
@@ -69,7 +69,7 @@ defmodule NeighborlyWeb.IncidentLive.Index do
         ]}
       />
 
-      <.link navigate={~p"/incidents"}>
+      <.link patch={~p"/incidents"}>
         Reset
       </.link>
     </.form>
@@ -102,7 +102,7 @@ defmodule NeighborlyWeb.IncidentLive.Index do
       |> Map.take(~w(q status sort_by))
       |> Map.reject(fn {_, value} -> value == "" end)
 
-    socket = push_navigate(socket, to: ~p"/incidents?#{params}")
+    socket = push_patch(socket, to: ~p"/incidents?#{params}")
 
     {:noreply, socket}
   end
