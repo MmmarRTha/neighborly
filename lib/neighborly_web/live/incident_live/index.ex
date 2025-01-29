@@ -5,13 +5,17 @@ defmodule NeighborlyWeb.IncidentLive.Index do
   import NeighborlyWeb.CustomComponets
 
   def mount(_params, _session, socket) do
+    {:ok, socket}
+  end
+
+  def handle_params(params, _uri, socket) do
     socket =
       socket
-      |> stream(:incidents, Incidents.list_incidents())
+      |> stream(:incidents, Incidents.filter_incidents(params), reset: true)
       |> assign(:page_title, "Incidents")
-      |> assign(:form, to_form(%{}))
+      |> assign(:form, to_form(params))
 
-    {:ok, socket}
+    {:noreply, socket}
   end
 
   def render(assigns) do
@@ -64,6 +68,10 @@ defmodule NeighborlyWeb.IncidentLive.Index do
           "Priority: Low to High": "priority_asc"
         ]}
       />
+
+      <.link patch={~p"/incidents"}>
+        Reset
+      </.link>
     </.form>
     """
   end
@@ -89,10 +97,12 @@ defmodule NeighborlyWeb.IncidentLive.Index do
   end
 
   def handle_event("filter", params, socket) do
-    socket =
-      socket
-      |> assign(:form, to_form(params))
-      |> stream(:incidents, Incidents.filter_incidents(params), reset: true)
+    params =
+      params
+      |> Map.take(~w(q status sort_by))
+      |> Map.reject(fn {_, value} -> value == "" end)
+
+    socket = push_patch(socket, to: ~p"/incidents?#{params}")
 
     {:noreply, socket}
   end
