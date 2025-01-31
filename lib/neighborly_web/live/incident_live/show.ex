@@ -15,7 +15,10 @@ defmodule NeighborlyWeb.IncidentLive.Show do
       socket
       |> assign(:incident, incident)
       |> assign(:page_title, incident.name)
-      |> assign(:urgent_incidents, Incidents.urgent_incidents(incident))
+      # |> assign(:urgent_incidents, Incidents.urgent_incidents(incident))
+      |> assign_async(:urgent_incidents, fn ->
+        {:ok, %{urgent_incidents: Incidents.urgent_incidents(incident)}}
+      end)
 
     {:noreply, socket}
   end
@@ -55,14 +58,26 @@ defmodule NeighborlyWeb.IncidentLive.Show do
     ~H"""
     <section>
       <h4>Urgent Incidents</h4>
-      <ul class="incidents">
-        <li :for={incident <- @incidents}>
-          <.link navigate={~p"/incidents/#{incident}"}>
-            <img src={incident.image_path} />
-          </.link>
-          {incident.name}
-        </li>
-      </ul>
+      <.async_result :let={result} assign={@incidents}>
+        <:loading>
+          <div class="loading">
+            <div class="spinner"></div>
+          </div>
+        </:loading>
+        <:failed :let={{:error, reason}}>
+          <div class="failed">
+            {reason}
+          </div>
+        </:failed>
+        <ul :if={@incidents.ok?} class="incidents">
+          <li :for={incident <- result}>
+            <.link navigate={~p"/incidents/#{incident}"}>
+              <img src={incident.image_path} />
+            </.link>
+            {incident.name}
+          </li>
+        </ul>
+      </.async_result>
     </section>
     """
   end
