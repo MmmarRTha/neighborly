@@ -69,7 +69,7 @@ defmodule NeighborlyWeb.IncidentLive.Show do
             {reason}
           </div>
         </:failed>
-        <ul :if={@incidents.ok?} class="incidents">
+        <ul class="incidents">
           <li :for={incident <- result}>
             <.link navigate={~p"/incidents/#{incident}"}>
               <img src={incident.image_path} />
