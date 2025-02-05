@@ -27,6 +27,7 @@ defmodule NeighborlyWeb.Router do
     live "/incidents/:id", IncidentLive.Show
 
     live "/admin/incidents", AdminIncidentLive.Index
+    live "/admin/incidents/new", AdminIncidentLive.Form
   end
 
   # Other scopes may use custom stacks.

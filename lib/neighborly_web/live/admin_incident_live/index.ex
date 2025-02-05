@@ -15,7 +15,14 @@ defmodule NeighborlyWeb.AdminIncidentLive.Index do
   def render(assigns) do
     ~H"""
     <div class="admin-index">
-      <.header>{@page_title}</.header>
+      <.header>
+        {@page_title}
+        <:actions>
+          <.link navigate={~p"/admin/incidents/new"} class="button">
+            New Incident
+          </.link>
+        </:actions>
+      </.header>
       <.table id="incidents" rows={@streams.incidents}>
         <:col :let={{_dom_id, incident}} label="Name">
           <.link navigate={~p"/incidents/#{incident}"}>
