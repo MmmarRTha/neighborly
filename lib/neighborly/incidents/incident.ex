@@ -7,7 +7,7 @@ defmodule Neighborly.Incidents.Incident do
     field :priority, :integer, default: 1
     field :status, Ecto.Enum, values: [:pending, :resolved, :canceled], default: :pending
     field :description, :string
-    field :image_path, :string, default: "/ images/placeholder.jpg"
+    field :image_path, :string, default: "/images/placeholder.jpg"
 
     timestamps(type: :utc_datetime)
   end

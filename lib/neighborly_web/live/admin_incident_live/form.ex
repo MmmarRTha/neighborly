@@ -4,7 +4,7 @@ defmodule NeighborlyWeb.AdminIncidentLive.Form do
   use NeighborlyWeb, :live_view
 
   def mount(_params, _session, socket) do
-    changeset = Incident.changeset(%Incident{}, %{})
+    changeset = Admin.change_incident(%Incident{})
 
     socket =
       socket
@@ -20,8 +20,8 @@ defmodule NeighborlyWeb.AdminIncidentLive.Form do
       {@page_title}
     </.header>
 
-    <.simple_form for={@form} id="incident-form" phx-submit="save">
-      <.input field={@form[:name]} label="Name" />
+    <.simple_form for={@form} id="incident-form" phx-submit="save" phx-change="validate">
+      <.input field={@form[:name]} label="Name" required />
       <.input field={@form[:priority]} type="number" label="Priority" />
       <.input
         field={@form[:status]}
@@ -30,8 +30,14 @@ defmodule NeighborlyWeb.AdminIncidentLive.Form do
         prompt="Choose a status"
         options={[:pending, :resolved, :canceled]}
       />
-      <.input field={@form[:description]} type="textarea" label="Description" />
-      <.input field={@form[:image_path]} label="Image Path" />
+      <.input
+        field={@form[:description]}
+        type="textarea"
+        label="Description"
+        phx-debounce="blur"
+        required
+      />
+      <.input field={@form[:image_path]} label="Image Path" required />
       <:actions>
         <.button phx-disable-with="Saving...">Save Incident</.button>
       </:actions>
@@ -41,6 +47,12 @@ defmodule NeighborlyWeb.AdminIncidentLive.Form do
       Back
     </.back>
     """
+  end
+
+  def handle_event("validate", %{"incident" => incident_params}, socket) do
+    changeset = Admin.change_incident(%Incident{}, incident_params)
+    socket = assign(socket, :form, to_form(changeset, action: :validate))
+    {:noreply, socket}
   end
 
   def handle_event("save", %{"incident" => incident_params}, socket) do
