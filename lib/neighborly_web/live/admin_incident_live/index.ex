@@ -32,6 +32,9 @@ defmodule NeighborlyWeb.AdminIncidentLive.Index do
         <:col :let={{_dom_id, incident}} label="Status">
           <.badge status={incident.status} />
         </:col>
+        <:col :let={{_dom_id, incident}} label="Priority">
+          {incident.priority}
+        </:col>
       </.table>
     </div>
     """
