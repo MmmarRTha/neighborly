@@ -22,4 +22,10 @@ defmodule Neighborly.Admin do
   def get_incident!(id) do
     Repo.get!(Incident, id)
   end
+
+  def update_incident(%Incident{} = incident, attrs) do
+    incident
+    |> Incident.changeset(attrs)
+    |> Repo.update()
+  end
 end
