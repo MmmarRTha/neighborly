@@ -28,4 +28,8 @@ defmodule Neighborly.Admin do
     |> Incident.changeset(attrs)
     |> Repo.update()
   end
+
+  def delete_incident(%Incident{} = incident) do
+    Repo.delete(incident)
+  end
 end

@@ -40,8 +40,24 @@ defmodule NeighborlyWeb.AdminIncidentLive.Index do
             Edit
           </.link>
         </:action>
+        <:action :let={{_dom_id, incident}}>
+          <.link
+            phx-click="delete"
+            phx-value-id={incident.id}
+            data-confirm="Do you want to delete it?"
+          >
+            <.icon name="hero-trash" class="w-4 h-4" /> Delete
+          </.link>
+        </:action>
       </.table>
     </div>
     """
+  end
+
+  def handle_event("delete", %{"id" => id}, socket) do
+    incident = Admin.get_incident!(id)
+    {:ok, _} = Admin.delete_incident(incident)
+
+    {:noreply, stream_delete(socket, :incidents, incident)}
   end
 end
