@@ -22,6 +22,7 @@ defmodule NeighborlyWeb.AdminIncidentLive.Index do
           out: {"ease-in-out duration-300", "opacity-100", "opacity-0"},
           time: 300
         )
+        |> JS.transition("shake", to: "#joke", time: 1000)
       }>
         Toggle Joke
       </.button>
