@@ -11,7 +11,10 @@ defmodule NeighborlyWeb.CategoryLive.Show do
       <:subtitle>This is a category record from your database.</:subtitle>
       <:actions>
         <.button phx-click={JS.dispatch("click", to: {:inner, "a"})}>
-          <.link navigate={~p"/categories/#{@category}/edit?return_to=show"}>
+          <.link
+            class="text-white hover:text-white"
+            navigate={~p"/categories/#{@category}/edit?return_to=show"}
+          >
             Edit category
           </.link>
         </.button>

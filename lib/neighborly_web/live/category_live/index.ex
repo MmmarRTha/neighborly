@@ -10,7 +10,7 @@ defmodule NeighborlyWeb.CategoryLive.Index do
       Listing Categories
       <:actions>
         <.button phx-click={JS.dispatch("click", to: {:inner, "a"})}>
-          <.link navigate={~p"/categories/new"}>
+          <.link class="text-white hover:text-white" navigate={~p"/categories/new"}>
             New Category
           </.link>
         </.button>

@@ -17,29 +17,29 @@
   }
 
   .tips ol {
-    @apply list-decimal list-inside space-y-2 mt-4;
+    @apply mt-4 space-y-2 list-decimal list-inside;
   }
 
   .tips ol li a {
-    @apply hover:text-sky-600 transition ease-in-out duration-150;
+    @apply transition duration-150 ease-in-out hover:text-sky-600;
   }
 
   /* EffortLive */
 
   .effort h1 {
-    @apply text-4xl font-extrabold text-center mb-8;
+    @apply mb-8 text-4xl font-extrabold text-center;
   }
 
   .effort button {
-    @apply py-2 px-4 bg-sky-500 text-white rounded-xl hover:bg-sky-700 active:bg-sky-900 text-2xl;
+    @apply px-4 py-2 text-2xl text-white bg-sky-500 rounded-xl hover:bg-sky-700 active:bg-sky-900;
   }
 
   .effort section {
-    @apply flex justify-center items-center gap-x-10 text-3xl tabular-nums;
+    @apply flex items-center justify-center text-3xl gap-x-10 tabular-nums;
   }
 
   .effort form {
-    @apply mt-8 text-center text-2xl;
+    @apply mt-8 text-2xl text-center;
   }
 
   .effort form label {
@@ -47,33 +47,33 @@
   }
 
   .effort form input {
-    @apply text-xl w-20 rounded-lg text-gray-900 focus:ring-1 focus:border-sky-600;
+    @apply w-20 text-xl text-gray-900 rounded-lg focus:ring-1 focus:border-sky-600;
   }
 
   /* IncidentLive.Index */
 
   .incident-index .incidents {
-    @apply mt-6 grid grid-cols-2 md:grid-cols-3 gap-6;
+    @apply grid grid-cols-2 gap-6 mt-6 md:grid-cols-3;
   }
 
   .incident-index .incidents .card {
-    @apply bg-white rounded-2xl shadow-md overflow-hidden border border-gray-200 pb-4;
+    @apply pb-4 overflow-hidden bg-white border border-gray-200 shadow-md rounded-2xl;
   }
 
   .incident-index .incidents .card .category {
-    @apply py-3 text-center bg-gray-200 text-gray-600 font-bold text-sm;
+    @apply py-3 text-sm font-bold text-center text-gray-600 bg-gray-200;
   }
 
   .incident-index .incidents .card img {
-    @apply p-4 pb-0 w-4/6 mx-auto object-cover hover:scale-105 transition duration-300;
+    @apply object-cover w-4/6 p-4 pb-0 mx-auto transition duration-300 hover:scale-105;
   }
 
   .incident-index .incidents .card h2 {
-    @apply px-4 mt-2 text-center text-sky-600 font-semibold truncate;
+    @apply px-4 mt-2 font-semibold text-center truncate text-sky-600;
   }
 
   .incident-index .incidents .card .details {
-    @apply px-6 mt-4 flex items-center justify-between;
+    @apply flex items-center justify-between px-6 mt-4;
   }
 
   .incident-index .incidents .card .details .priority {
@@ -81,7 +81,7 @@
   }
 
   .incident-index form {
-    @apply sm:flex justify-center gap-4 items-center;
+    @apply items-center justify-center gap-4 sm:flex;
   }
 
   .incident-index form a {
@@ -89,33 +89,33 @@
   }
 
   .incident-index .no-results {
-    @apply p-8 border-2 border-dashed border-gray-400 rounded-lg text-center text-lg font-semibold text-gray-600 col-span-2 md:col-span-3;
+    @apply col-span-2 p-8 text-lg font-semibold text-center text-gray-600 border-2 border-gray-400 border-dashed rounded-lg md:col-span-3;
   }
 
   .incident-index .failed {
-    @apply mx-auto max-w-2xl mt-6 px-4 py-3 bg-red-50 border border-red-400 rounded-lg text-center text-red-700;
+    @apply max-w-2xl px-4 py-3 mx-auto mt-6 text-center text-red-700 border border-red-400 rounded-lg bg-red-50;
   }
 
   /* IncidentLive.Show */
 
   .incident-show .winner {
-    @apply mx-auto mb-8 p-6 text-center text-2xl bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-extrabold;
+    @apply p-6 mx-auto mb-8 text-2xl font-extrabold text-center text-white bg-gradient-to-r from-cyan-500 to-blue-500;
   }
 
   .incident-show .incident {
-    @apply grid md:grid-cols-3 gap-x-4 mb-10;
+    @apply grid mb-10 md:grid-cols-3 gap-x-4;
   }
 
   .incident-show .incident img {
-    @apply mx-auto w-1/2 px-8 md:w-full;
+    @apply w-1/2 px-8 mx-auto md:w-full;
   }
 
   .incident-show .incident section {
-    @apply md:col-span-2 space-y-5;
+    @apply space-y-5 md:col-span-2;
   }
 
   .incident-show .incident section header {
-    @apply flex justify-between items-start;
+    @apply flex items-start justify-between;
   }
 
   .incident-show .incident section header h2 {
@@ -127,15 +127,15 @@
   }
 
   .incident-show .incident section header .priority {
-    @apply text-lg text-white font-medium bg-gray-500 rounded-full px-4 py-2;
+    @apply px-4 py-2 text-lg font-medium text-white bg-gray-500 rounded-full;
   }
 
   .incident-show .incident section .totals {
-    @apply font-medium text-gray-600 flex items-center;
+    @apply flex items-center font-medium text-gray-600;
   }
 
   .incident-show .incident section .description {
-    @apply text-gray-500 font-light text-lg;
+    @apply text-lg font-light text-gray-500;
   }
 
   .incident-show .activity {
@@ -147,7 +147,7 @@
   }
 
   .incident-show .activity .right {
-    @apply text-center justify-self-end space-y-8 w-64;
+    @apply w-64 space-y-8 text-center justify-self-end;
   }
 
   .incident-show .activity .right h4 {
@@ -159,15 +159,15 @@
   }
 
   .incident-show .activity .change-status a {
-    @apply text-xs text-sky-600 hover:text-sky-800 transition ease-in-out duration-150;
+    @apply text-xs transition duration-150 ease-in-out text-sky-600 hover:text-sky-800;
   }
 
   .incident-show .activity .change-status #emojis {
-    @apply hidden flex items-center justify-center space-x-3 text-xl mt-2;
+    @apply flex items-center justify-center hidden mt-2 space-x-3 text-xl;
   }
 
   .incident-show .activity .change-status #emojis span {
-    @apply inline-block hover:scale-125 transition duration-300 cursor-pointer;
+    @apply inline-block transition duration-300 cursor-pointer hover:scale-125;
   }
 
   .incident-show #response-form {
@@ -191,7 +191,7 @@
   }
 
   .incident-show .response section .avatar {
-    @apply h-10 w-10 rounded-full bg-sky-600 flex items-center justify-center text-white;
+    @apply flex items-center justify-center w-10 h-10 text-white rounded-full bg-sky-600;
   }
 
   .incident-show .response section .username {
@@ -205,17 +205,17 @@
   /* AdminIncidentLive.Index */
 
   .admin-index table a {
-    @apply text-sky-600 hover:text-sky-800 focus:outline-none focus:underline transition ease-in-out duration-150;
+    @apply transition duration-150 ease-in-out text-neutral-700 hover:text-blue-600 focus:outline-none focus:underline;
   }
 
   .admin-index .joke {
-    @apply bg-orange-100 text-orange-600 p-4 my-4 rounded-xl;
+    @apply p-4 my-4 text-orange-600 bg-orange-100 rounded-xl;
   }
 
   /* AdminIncidentLive.Form */
 
   #incident-form .entry {
-    @apply my-6 flex items-center justify-start space-x-6;
+    @apply flex items-center justify-start my-6 space-x-6;
   }
 
   #incident-form .entry img {
@@ -227,11 +227,11 @@
   }
 
   #incident-form .entry .progress .value {
-    @apply text-left mb-2 text-xs font-semibold inline-block text-sky-600;
+    @apply inline-block mb-2 text-xs font-semibold text-left text-sky-600;
   }
 
   #incident-form .entry .progress .bar {
-    @apply flex h-2 overflow-hidden text-base bg-sky-200 rounded-lg mb-4;
+    @apply flex h-2 mb-4 overflow-hidden text-base rounded-lg bg-sky-200;
   }
 
   #incident-form .entry .progress .bar>span {
@@ -240,11 +240,11 @@
   }
 
   #incident-form .entry button {
-    @apply text-3xl font-bold text-gray-700 hover:text-red-700 cursor-pointer;
+    @apply text-3xl font-bold text-gray-700 cursor-pointer hover:text-red-700;
   }
 
   #incident-form .hint {
-    @apply my-4 text-gray-600 text-sm;
+    @apply my-4 text-sm text-gray-600;
   }
 
   #incident-form .thumbnail {
@@ -256,15 +256,15 @@
   }
 
   #incident-form .thumbnail img {
-    @apply h-20 w-20;
+    @apply w-20 h-20;
   }
 
   #incident-form .drop {
-    @apply flex items-baseline justify-between space-x-1 my-2 p-4 border-2 border-dashed border-gray-300 rounded-md text-center text-gray-600;
+    @apply flex items-baseline justify-between p-4 my-2 space-x-1 text-center text-gray-600 border-2 border-gray-300 border-dashed rounded-md;
   }
 
   #incident-form .drop label {
-    @apply cursor-pointer font-medium text-sky-600 hover:text-sky-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-sky-500;
+    @apply font-medium cursor-pointer text-sky-600 hover:text-sky-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-sky-500;
   }
 
   #incident-form .drop span {
@@ -272,15 +272,15 @@
   }
 
   #incident-form .drop img {
-    @apply mx-auto h-12 w-12;
+    @apply w-12 h-12 mx-auto;
   }
 
   #incident-form .drop-stylish {
-    @apply mt-4 p-4 border-2 border-dashed border-gray-300 rounded-md text-center text-gray-500 text-sm;
+    @apply p-4 mt-4 text-sm text-center text-gray-500 border-2 border-gray-300 border-dashed rounded-md;
   }
 
   #incident-form .drop-stylish label span {
-    @apply cursor-pointer font-medium text-sky-600 hover:text-sky-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-sky-500;
+    @apply font-medium cursor-pointer text-sky-600 hover:text-sky-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-sky-500;
   }
 
   #incident-form .drop-stylish p {
@@ -290,15 +290,15 @@
   /* Components and Utilities */
 
   .badge {
-    @apply rounded-md px-2 py-1 text-xs font-medium uppercase inline-block border text-lime-600 border-lime-600;
+    @apply inline-block px-2 py-1 text-xs font-medium uppercase border rounded-md text-lime-600 border-lime-600;
   }
 
   .button {
-    @apply inline-block rounded-lg bg-zinc-900 hover:bg-zinc-700 hover:text-white py-2 px-3 text-sm font-semibold leading-6 text-white active:text-white/80 focus:no-underline;
+    @apply inline-block px-3 py-2 text-sm font-semibold leading-6 text-white rounded-lg bg-zinc-900 hover:bg-zinc-700 hover:text-white active:text-white/80 focus:no-underline;
   }
 
   .spinner {
-    @apply border-gray-300 h-10 w-10 animate-spin rounded-full border-8 border-t-sky-400;
+    @apply w-10 h-10 border-8 border-gray-300 rounded-full animate-spin border-t-sky-400;
   }
 
   .loading {
@@ -306,25 +306,25 @@
   }
 
   .failed {
-    @apply flex justify-center my-6 text-sm rounded-md p-3 font-medium text-red-800 border-2 border-dashed border-red-200;
+    @apply flex justify-center p-3 my-6 text-sm font-medium text-red-800 border-2 border-red-200 border-dashed rounded-md;
   }
 
   header a {
-    @apply text-sky-600 font-medium hover:text-sky-800 focus:outline-none focus:underline transition ease-in-out duration-150;
+    @apply font-medium transition duration-150 ease-in-out text-neutral-700 hover:text-sky-600 focus:outline-none focus:underline;
   }
 
   /* Headline Component */
 
   .headline {
-    @apply mx-auto text-center mb-6 p-4 bg-gradient-to-r from-cyan-500 to-sky-600;
+    @apply p-4 mx-auto mb-6 text-center bg-gradient-to-r from-cyan-500 to-sky-600;
   }
 
   .headline h1 {
-    @apply font-extrabold text-gray-50 text-xl flex items-center justify-center gap-2;
+    @apply flex items-center justify-center gap-2 text-xl font-extrabold text-gray-50;
   }
 
   .headline .tagline {
-    @apply mt-1 text-sm font-medium text-gray-50 flex items-center justify-center gap-1;
+    @apply flex items-center justify-center gap-1 mt-1 text-sm font-medium text-gray-50;
   }
 
   .headline svg {
@@ -334,11 +334,11 @@
   /* Incident List */
 
   ul.incidents {
-    @apply mt-4 space-y-3 ml-2;
+    @apply mt-4 ml-2 space-y-3;
   }
 
   ul.incidents li {
-    @apply flex items-center gap-x-2 text-sm;
+    @apply flex items-center text-sm gap-x-2;
   }
 
   ul.incidents li img {
@@ -346,7 +346,7 @@
   }
 
   ul.incidents li a {
-    @apply flex items-center gap-x-2 text-sky-600 font-medium hover:text-sky-800 transition ease-in-out duration-150;
+    @apply flex items-center font-medium transition duration-150 ease-in-out gap-x-2 text-sky-600 hover:text-sky-800;
   }
 
   /* Presences List */
@@ -356,7 +356,7 @@
   }
 
   ul.presences li {
-    @apply flex items-center gap-x-2 text-gray-600;
+    @apply flex items-center text-gray-600 gap-x-2;
   }
 
   ul.presences li .status {
