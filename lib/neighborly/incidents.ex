@@ -1,7 +1,6 @@
 defmodule Neighborly.Incidents do
   alias Neighborly.Repo
   alias Neighborly.Incidents.Incident
-  alias Neighborly.Categories.Category
   import Ecto.Query
 
   def list_incidents do
@@ -26,9 +25,9 @@ defmodule Neighborly.Incidents do
     # on: i.category_id == c.id,
     # where: c.slug == ^slug
 
-    from i in query,
-      join: c in assoc(i, :category),
-      where: c.slug == ^slug
+    query
+    |> join(:inner, [i], c in assoc(i, :category))
+    |> where([i, c], c.slug == ^slug)
   end
 
   defp with_status(query, status) when status in ~w(pending resolved canceled) do
@@ -43,14 +42,17 @@ defmodule Neighborly.Incidents do
     where(query, [i], ilike(i.name, ^"%#{q}%"))
   end
 
-  defp sort(query, sort_by) do
-    order_by(query, ^sort_option(sort_by))
+  defp sort(query, "name"), do: order_by(query, :name)
+  defp sort(query, "priority_desc"), do: order_by(query, desc: :priority)
+  defp sort(query, "priority_asc"), do: order_by(query, asc: :priority)
+
+  defp sort(query, "category") do
+    query
+    |> join(:inner, [i], c in assoc(i, :category))
+    |> order_by([i, c], asc: c.name)
   end
 
-  defp sort_option("name"), do: :name
-  defp sort_option("priority_desc"), do: [desc: :priority]
-  defp sort_option("priority_asc"), do: [asc: :priority]
-  defp sort_option(_), do: :id
+  defp sort(query, _), do: order_by(query, :id)
 
   def get_incident!(id) do
     Repo.get!(Incident, id)
