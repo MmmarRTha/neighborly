@@ -1,6 +1,7 @@
 defmodule Neighborly.Incidents do
   alias Neighborly.Repo
   alias Neighborly.Incidents.Incident
+  alias Neighborly.Categories.Category
   import Ecto.Query
 
   def list_incidents do
@@ -11,9 +12,23 @@ defmodule Neighborly.Incidents do
     Incident
     |> with_status(filter["status"])
     |> search_by(filter["q"])
+    |> with_category(filter["category"])
     |> sort(filter["sort_by"])
     |> preload(:category)
     |> Repo.all()
+  end
+
+  defp with_category(query, slug) when slug in ["", nil], do: query
+
+  defp with_category(query, slug) do
+    # from i in query,
+      # join: c in Category,
+      # on: i.category_id == c.id,
+      # where: c.slug == ^slug
+
+      from i in query,
+      join: c in assoc(i, :category),
+      where: c.slug == ^slug
   end
 
   defp with_status(query, status) when status in ~w(pending resolved canceled) do
