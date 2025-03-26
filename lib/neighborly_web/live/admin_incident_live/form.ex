@@ -1,10 +1,16 @@
 defmodule NeighborlyWeb.AdminIncidentLive.Form do
   alias Neighborly.Incidents.Incident
   alias Neighborly.Admin
+  alias Neighborly.Categories
   use NeighborlyWeb, :live_view
 
   def mount(params, _session, socket) do
-    {:ok, apply_action(socket, socket.assigns.live_action, params)}
+    socket =
+      socket
+      |> assign(:category_options, Categories.category_names_and_ids())
+      |> apply_action(socket.assigns.live_action, params)
+
+    {:ok, socket}
   end
 
   defp apply_action(socket, :new, _params) do
@@ -42,6 +48,13 @@ defmodule NeighborlyWeb.AdminIncidentLive.Form do
         type="select"
         prompt="Choose a status"
         options={[:pending, :resolved, :canceled]}
+      />
+      <.input
+        field={@form[:category_id]}
+        label="Category"
+        type="select"
+        prompt="Choose a category"
+        options={@category_options}
       />
       <.input
         field={@form[:description]}

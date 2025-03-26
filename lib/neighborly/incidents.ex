@@ -11,8 +11,23 @@ defmodule Neighborly.Incidents do
     Incident
     |> with_status(filter["status"])
     |> search_by(filter["q"])
+    |> with_category(filter["category"])
     |> sort(filter["sort_by"])
+    |> preload(:category)
     |> Repo.all()
+  end
+
+  defp with_category(query, slug) when slug in ["", nil], do: query
+
+  defp with_category(query, slug) do
+    # from i in query,
+    # join: c in Category,
+    # on: i.category_id == c.id,
+    # where: c.slug == ^slug
+
+    query
+    |> join(:inner, [i], c in assoc(i, :category))
+    |> where([i, c], c.slug == ^slug)
   end
 
   defp with_status(query, status) when status in ~w(pending resolved canceled) do
@@ -27,17 +42,21 @@ defmodule Neighborly.Incidents do
     where(query, [i], ilike(i.name, ^"%#{q}%"))
   end
 
-  defp sort(query, sort_by) do
-    order_by(query, ^sort_option(sort_by))
+  defp sort(query, "name"), do: order_by(query, :name)
+  defp sort(query, "priority_desc"), do: order_by(query, desc: :priority)
+  defp sort(query, "priority_asc"), do: order_by(query, asc: :priority)
+
+  defp sort(query, "category") do
+    query
+    |> join(:inner, [i], c in assoc(i, :category))
+    |> order_by([i, c], asc: c.name)
   end
 
-  defp sort_option("name"), do: :name
-  defp sort_option("priority_desc"), do: [desc: :priority]
-  defp sort_option("priority_asc"), do: [asc: :priority]
-  defp sort_option(_), do: :id
+  defp sort(query, _), do: order_by(query, :id)
 
   def get_incident!(id) do
     Repo.get!(Incident, id)
+    |> Repo.preload(:category)
   end
 
   def urgent_incidents(incident) do

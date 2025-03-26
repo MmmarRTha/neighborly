@@ -6,6 +6,8 @@ defmodule Neighborly.Categories.Category do
     field :name, :string
     field :slug, :string
 
+    has_many :incidents, Neighborly.Incidents.Incident
+
     timestamps(type: :utc_datetime)
   end
 
