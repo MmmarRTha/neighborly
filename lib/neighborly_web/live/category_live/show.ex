@@ -24,7 +24,7 @@ defmodule NeighborlyWeb.CategoryLive.Show do
     </.list>
 
     <section class="mt-12">
-    <h4>Incidents</h4>
+      <h4>Incidents</h4>
       <ul class="incidents">
         <li :for={incident <- @category.incidents}>
           <.link navigate={~p"/incidents/#{incident}"}>

@@ -22,11 +22,11 @@ defmodule Neighborly.Incidents do
 
   defp with_category(query, slug) do
     # from i in query,
-      # join: c in Category,
-      # on: i.category_id == c.id,
-      # where: c.slug == ^slug
+    # join: c in Category,
+    # on: i.category_id == c.id,
+    # where: c.slug == ^slug
 
-      from i in query,
+    from i in query,
       join: c in assoc(i, :category),
       where: c.slug == ^slug
   end

@@ -7,7 +7,7 @@ defmodule NeighborlyWeb.IncidentLive.Index do
 
   def mount(_params, _session, socket) do
     socket =
-        assign(socket, :category_options, Categories.category_names_and_slugs())
+      assign(socket, :category_options, Categories.category_names_and_slugs())
 
     {:ok, socket}
   end
@@ -32,7 +32,7 @@ defmodule NeighborlyWeb.IncidentLive.Index do
         </:tagline>
       </.headline>
 
-      <.filter_form form={@form} category_options={@category_options}/>
+      <.filter_form form={@form} category_options={@category_options} />
 
       <div class="incidents" id="incidents" phx-update="stream">
         <div id="empty" class="hidden no-results only:block">
@@ -63,12 +63,7 @@ defmodule NeighborlyWeb.IncidentLive.Index do
         options={Incidents.status_options()}
       />
 
-      <.input
-        type="select"
-        field={@form[:category]}
-        prompt="Category"
-        options={@category_options}
-      />
+      <.input type="select" field={@form[:category]} prompt="Category" options={@category_options} />
 
       <.input
         type="select"
