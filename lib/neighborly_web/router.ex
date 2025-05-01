@@ -42,8 +42,9 @@ defmodule NeighborlyWeb.Router do
 
     get "/incidents", IncidentController, :index
     get "/incidents/:id", IncidentController, :show
+    post "/incidents", IncidentController, :create
 
-    get "categories/:id/incidents", CategoryController, :show
+    get "/categories/:id/incidents", CategoryController, :show
   end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
