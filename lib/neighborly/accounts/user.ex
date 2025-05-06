@@ -48,6 +48,7 @@ defmodule Neighborly.Accounts.User do
     changeset
     |> validate_required([:username])
     |> validate_length(:username, min: 2, max: 20)
+    |> validate_format(:username, ~r/^[a-zA-Z0-9_-]+$/)
     |> unsafe_validate_unique(:username, Neighborly.Repo)
     |> unique_constraint(:username)
   end
