@@ -4,6 +4,8 @@ defmodule NeighborlyWeb.IncidentLive.Show do
   alias Neighborly.Incidents
   import NeighborlyWeb.CustomComponets
 
+  on_mount {NeighborlyWeb.UserAuth, :mount_current_user}
+
   def mount(_params, _session, socket) do
     socket = assign(socket, :form, to_form(%{}))
     {:ok, socket}
@@ -49,18 +51,24 @@ defmodule NeighborlyWeb.IncidentLive.Show do
       </div>
       <div class="activity">
         <div class="left">
-          <%= if @current_user do %>
-            <.form for={@form} id="response-form">
-              <.input
-                field={@form[:status]}
-                type="select"
-                prompt="Choose a status"
-                options={[:enroute, :arrived, :departed]}
-              />
+          <div :if={@incident.status == :pending}>
+            <%= if @current_user do %>
+              <.form for={@form} id="response-form">
+                <.input
+                  field={@form[:status]}
+                  type="select"
+                  prompt="Choose a status"
+                  options={[:enroute, :arrived, :departed]}
+                />
 
-              <.input field={@form[:note]} type="textarea" placeholder="Note..." autofocus />
-            </.form>
-          <% end %>
+                <.input field={@form[:note]} type="textarea" placeholder="Note..." autofocus />
+              </.form>
+            <% else %>
+              <.link href={~p"/users/log-in"} class="button">
+                Log In To Post
+              </.link>
+            <% end %>
+          </div>
         </div>
         <div class="right">
           <.urgent_incidents incidents={@urgent_incidents} />
