@@ -5,8 +5,8 @@ defmodule Neighborly.Repo.Migrations.CreateResponses do
     create table(:responses) do
       add :note, :text
       add :status, :string
-      add :incident_id, references(:incidents, on_delete: :nothing)
-      add :user_id, references(:users, on_delete: :nothing)
+      add :incident_id, references(:incidents, on_delete: :delete_all), null: false
+      add :user_id, references(:users, on_delete: :delete_all), null: false
 
       timestamps(type: :utc_datetime)
     end
