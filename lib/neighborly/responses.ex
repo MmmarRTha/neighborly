@@ -4,6 +4,8 @@ defmodule Neighborly.Responses do
   """
 
   import Ecto.Query, warn: false
+  alias Neighborly.Incidents.Incident
+  alias Neighborly.Accounts.User
   alias Neighborly.Repo
 
   alias Neighborly.Responses.Response
@@ -49,8 +51,8 @@ defmodule Neighborly.Responses do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_response(attrs \\ %{}) do
-    %Response{}
+  def create_response(%Incident{} = incident, %User{} = user, attrs \\ %{}) do
+    %Response{incident: incident, user: user, status: incident.status}
     |> Response.changeset(attrs)
     |> Repo.insert()
   end
