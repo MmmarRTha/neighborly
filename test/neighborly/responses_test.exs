@@ -46,16 +46,25 @@ defmodule Neighborly.ResponsesTest do
     test "create_response/3 with valid data creates a response", %{user: user, incident: incident} do
       valid_attrs = %{status: :enroute, note: "some note"}
 
-      assert {:ok, %Response{} = response} = Responses.create_response(incident, user, valid_attrs)
+      assert {:ok, %Response{} = response} =
+               Responses.create_response(incident, user, valid_attrs)
+
       assert response.status == :enroute
       assert response.note == "some note"
     end
 
-    test "create_response/3 with invalid data returns error changeset", %{user: user, incident: incident} do
-      assert {:error, %Ecto.Changeset{}} = Responses.create_response(incident, user, @invalid_attrs)
+    test "create_response/3 with invalid data returns error changeset", %{
+      user: user,
+      incident: incident
+    } do
+      assert {:error, %Ecto.Changeset{}} =
+               Responses.create_response(incident, user, @invalid_attrs)
     end
 
-    test "update_response/2 with valid data updates the response", %{user: _user, incident: _incident} do
+    test "update_response/2 with valid data updates the response", %{
+      user: _user,
+      incident: _incident
+    } do
       response = response_fixture()
       update_attrs = %{status: :arrived, note: "some updated note"}
 
@@ -64,7 +73,10 @@ defmodule Neighborly.ResponsesTest do
       assert response.note == "some updated note"
     end
 
-    test "update_response/2 with invalid data returns error changeset", %{user: _user, incident: _incident} do
+    test "update_response/2 with invalid data returns error changeset", %{
+      user: _user,
+      incident: _incident
+    } do
       response = response_fixture()
       assert {:error, %Ecto.Changeset{}} = Responses.update_response(response, @invalid_attrs)
       assert Responses.get_response!(response.id).id == response.id

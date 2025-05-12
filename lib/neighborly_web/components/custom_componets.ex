@@ -33,4 +33,29 @@ defmodule NeighborlyWeb.CustomComponets do
     </div>
     """
   end
+
+  attr :form, :map, required: true, doc: "the form struct for the response"
+  attr :current_user, :map, default: nil, doc: "the current user if available"
+
+  def response_form(assigns) do
+    ~H"""
+    <%= if @current_user do %>
+      <.form for={@form} id="response-form" phx-change="validate" phx-submit="save">
+        <.input
+          field={@form[:status]}
+          type="select"
+          prompt="Choose a status"
+          options={[:enroute, :arrived, :departed]}
+        />
+
+        <.input field={@form[:note]} type="textarea" placeholder="Note..." autofocus />
+        <.button>Post</.button>
+      </.form>
+    <% else %>
+      <.link href={~p"/users/log-in"} class="button">
+        Log In To Post
+      </.link>
+    <% end %>
+    """
+  end
 end

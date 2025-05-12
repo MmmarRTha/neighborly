@@ -57,23 +57,7 @@ defmodule NeighborlyWeb.IncidentLive.Show do
       <div class="activity">
         <div class="left">
           <div :if={@incident.status == :pending}>
-            <%= if @current_user do %>
-              <.form for={@form} id="response-form" phx-change="validate" phx-submit="save">
-                <.input
-                  field={@form[:status]}
-                  type="select"
-                  prompt="Choose a status"
-                  options={[:enroute, :arrived, :departed]}
-                />
-
-                <.input field={@form[:note]} type="textarea" placeholder="Note..." autofocus />
-                <.button>Post</.button>
-              </.form>
-            <% else %>
-              <.link href={~p"/users/log-in"} class="button">
-                Log In To Post
-              </.link>
-            <% end %>
+            <.response_form form={@form} current_user={@current_user} />
           </div>
         </div>
         <div class="right">
