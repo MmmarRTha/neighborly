@@ -3,10 +3,30 @@ defmodule NeighborlyWeb.CategoryLiveTest do
 
   import Phoenix.LiveViewTest
   import Neighborly.CategoriesFixtures
+  import Neighborly.AccountsFixtures
+
+  alias Neighborly.Repo
+  alias Neighborly.Accounts.User
 
   @create_attrs %{name: "some name", slug: "some slug"}
   @update_attrs %{name: "some updated name", slug: "some updated slug"}
   @invalid_attrs %{name: nil, slug: nil}
+
+  setup do
+    # Create a user and make them an admin directly through Repo
+    user = user_fixture()
+
+    # Update the user to be an admin
+    user
+    |> Ecto.Changeset.change(%{is_admin: true})
+    |> Repo.update!()
+
+    # Reload the user to ensure we have the updated data
+    admin = Repo.get!(User, user.id)
+
+    conn = log_in_user(build_conn(), admin)
+    %{conn: conn, admin: admin}
+  end
 
   defp create_category(_) do
     category = category_fixture()

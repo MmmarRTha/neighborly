@@ -10,6 +10,7 @@ defmodule Neighborly.Incidents.Incident do
     field :image_path, :string, default: "/images/placeholder.jpg"
 
     belongs_to :category, Neighborly.Categories.Category
+    has_many :responses, Neighborly.Responses.Response
 
     timestamps(type: :utc_datetime)
   end
