@@ -59,6 +59,14 @@ defmodule Neighborly.Incidents do
     |> Repo.preload(:category)
   end
 
+  def list_responses(incident) do
+    incident
+    |> Ecto.assoc(:responses)
+    |> preload(:user)
+    |> order_by(desc: :inserted_at)
+    |> Repo.all()
+  end
+
   def urgent_incidents(incident) do
     # list_incidents() |> List.delete(incident)
     Incident

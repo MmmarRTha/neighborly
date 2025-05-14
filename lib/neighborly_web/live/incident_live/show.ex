@@ -19,11 +19,14 @@ defmodule NeighborlyWeb.IncidentLive.Show do
   def handle_params(%{"id" => id}, _uri, socket) do
     incident = Incidents.get_incident!(id)
 
+    responses = Incidents.list_responses(incident)
+
     socket =
       socket
       |> assign(:incident, incident)
+      |> stream(:responses, responses)
+      |> assign(:response_count, Enum.count(responses))
       |> assign(:page_title, incident.name)
-      # |> assign(:urgent_incidents, Incidents.urgent_incidents(incident))
       |> assign_async(:urgent_incidents, fn ->
         {:ok, %{urgent_incidents: Incidents.urgent_incidents(incident)}}
       end)
@@ -52,12 +55,22 @@ defmodule NeighborlyWeb.IncidentLive.Show do
           <div class="description">
             {@incident.description}
           </div>
+          <div class="totals">
+            &bull; {@response_count} Responses
+          </div>
         </section>
       </div>
       <div class="activity">
         <div class="left">
           <div :if={@incident.status == :pending}>
             <.response_form form={@form} current_user={@current_user} />
+          </div>
+          <div id="responses" phx-update="stream">
+            <.response
+              :for={{dom_id, response} <- @streams.responses}
+              response={response}
+              id={dom_id}
+            />
           </div>
         </div>
         <div class="right">
@@ -97,6 +110,33 @@ defmodule NeighborlyWeb.IncidentLive.Show do
     """
   end
 
+  attr :id, :string, required: true
+  attr :response, Response, required: true
+
+  def response(assigns) do
+    ~H"""
+    <div class="response" id={@id}>
+      <span class="timeline"></span>
+      <section>
+        <div class="avatar">
+          <.icon name="hero-user-solid" />
+        </div>
+        <div>
+          <span class="username">
+            {@response.user.username}
+          </span>
+          <span>
+            {@response.status}
+          </span>
+          <blockquote>
+            {@response.note}
+          </blockquote>
+        </div>
+      </section>
+    </div>
+    """
+  end
+
   def handle_event("validate", %{"response" => response_params}, socket) do
     changeset = Responses.change_response(%Response{}, response_params)
 
@@ -108,10 +148,15 @@ defmodule NeighborlyWeb.IncidentLive.Show do
     %{incident: incident, current_user: user} = socket.assigns
 
     case Responses.create_response(incident, user, response_params) do
-      {:ok, _response} ->
+      {:ok, response} ->
         changeset = Responses.change_response(%Response{})
 
-        socket = assign(socket, :form, to_form(changeset))
+        socket =
+          socket
+          |> assign(:form, to_form(changeset))
+          |> stream_insert(:responses, response, at: 0)
+          |> update(:response_count, &(&1 + 1))
+
         {:noreply, socket}
 
       {:error, changeset} ->
