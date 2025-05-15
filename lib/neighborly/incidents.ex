@@ -3,6 +3,14 @@ defmodule Neighborly.Incidents do
   alias Neighborly.Incidents.Incident
   import Ecto.Query
 
+  def subscribe(incident_id) do
+    Phoenix.PubSub.subscribe(Neighborly.PubSub, "incident:#{incident_id}")
+  end
+
+  def broadcast(incident_id, message) do
+    Phoenix.PubSub.broadcast(Neighborly.PubSub, "incident:#{incident_id}", message)
+  end
+
   def list_incidents do
     Repo.all(Incident)
   end

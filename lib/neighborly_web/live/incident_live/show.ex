@@ -17,6 +17,10 @@ defmodule NeighborlyWeb.IncidentLive.Show do
   end
 
   def handle_params(%{"id" => id}, _uri, socket) do
+    if connected?(socket) do
+      Incidents.subscribe(id)
+    end
+
     incident = Incidents.get_incident!(id)
 
     responses = Incidents.list_responses(incident)
@@ -148,14 +152,12 @@ defmodule NeighborlyWeb.IncidentLive.Show do
     %{incident: incident, current_user: user} = socket.assigns
 
     case Responses.create_response(incident, user, response_params) do
-      {:ok, response} ->
+      {:ok, _response} ->
         changeset = Responses.change_response(%Response{})
 
         socket =
           socket
           |> assign(:form, to_form(changeset))
-          |> stream_insert(:responses, response, at: 0)
-          |> update(:response_count, &(&1 + 1))
 
         {:noreply, socket}
 
@@ -163,5 +165,18 @@ defmodule NeighborlyWeb.IncidentLive.Show do
         socket = assign(socket, :form, to_form(changeset))
         {:noreply, socket}
     end
+  end
+
+  def handle_info({:response_created, response}, socket) do
+    socket =
+      socket
+      |> stream_insert(:responses, response, at: 0)
+      |> update(:response_count, &(&1 + 1))
+
+    {:noreply, socket}
+  end
+
+  def handle_info({:incident_updated, incident}, socket) do
+    {:noreply, assign(socket, :incident, incident)}
   end
 end
