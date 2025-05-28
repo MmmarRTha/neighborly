@@ -41,6 +41,14 @@ defmodule NeighborlyWeb.IncidentLive.Show do
   def render(assigns) do
     ~H"""
     <div class="incident-show">
+      <.headline :if={@incident.heroic_response}>
+        <.icon name="hero-sparkles-solid" />
+        Heroic Responder: {@incident.heroic_response.user.username}
+        <:tagline>
+          {@incident.heroic_response.note}
+        </:tagline>
+      </.headline>
+
       <div class="incident">
         <img src={@incident.image_path} />
         <section>
