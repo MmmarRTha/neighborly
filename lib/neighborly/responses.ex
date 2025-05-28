@@ -4,6 +4,7 @@ defmodule Neighborly.Responses do
   """
 
   import Ecto.Query, warn: false
+  alias Neighborly.Incidents
   alias Neighborly.Incidents.Incident
   alias Neighborly.Accounts.User
   alias Neighborly.Repo
@@ -55,6 +56,14 @@ defmodule Neighborly.Responses do
     %Response{incident: incident, user: user, status: incident.status}
     |> Response.changeset(attrs)
     |> Repo.insert()
+    |> case do
+      {:ok, response} ->
+        Incidents.broadcast(incident.id, {:response_created, response})
+        {:ok, response}
+
+      {:error, _} = error ->
+        error
+    end
   end
 
   @doc """

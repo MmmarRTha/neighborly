@@ -11,6 +11,7 @@ defmodule Neighborly.Incidents.Incident do
 
     belongs_to :category, Neighborly.Categories.Category
     has_many :responses, Neighborly.Responses.Response
+    belongs_to :heroic_response, Neighborly.Responses.Response
 
     timestamps(type: :utc_datetime)
   end
@@ -18,7 +19,15 @@ defmodule Neighborly.Incidents.Incident do
   @doc false
   def changeset(incident, attrs) do
     incident
-    |> cast(attrs, [:name, :description, :priority, :status, :image_path, :category_id])
+    |> cast(attrs, [
+      :name,
+      :description,
+      :priority,
+      :status,
+      :image_path,
+      :category_id,
+      :heroic_response_id
+    ])
     |> validate_required([:name, :description, :priority, :status, :image_path, :category_id])
     |> validate_length(:description, min: 10)
     |> validate_number(:priority,
