@@ -24,18 +24,13 @@ defmodule NeighborlyWeb.IncidentLive.Show do
       Incidents.subscribe(id)
 
       if current_user do
-        {:ok, _} =
-          Presence.track(self(), topic(id), current_user.username, %{
-            online_at: System.system_time(:second)
-          })
+        Presence.track_user(id, current_user)
+
+        Presence.subscribe(id)
       end
     end
 
-    presences =
-      Presence.list(topic(id))
-      |> Enum.map(fn {username, %{metas: metas}} ->
-        %{id: username, metas: metas}
-      end)
+    presences = Presence.list_users(id)
 
     incident = Incidents.get_incident!(id)
 
@@ -53,10 +48,6 @@ defmodule NeighborlyWeb.IncidentLive.Show do
       end)
 
     {:noreply, socket}
-  end
-
-  defp topic(incident_id) do
-    "incident_onlookers:#{incident_id}"
   end
 
   def render(assigns) do
@@ -222,5 +213,17 @@ defmodule NeighborlyWeb.IncidentLive.Show do
 
   def handle_info({:incident_updated, incident}, socket) do
     {:noreply, assign(socket, :incident, incident)}
+  end
+
+  def handle_info({:user_joined, presence}, socket) do
+    {:noreply, stream_insert(socket, :presences, presence)}
+  end
+
+  def handle_info({:user_left, presence}, socket) do
+    if presence.metas == [] do
+      {:noreply, stream_delete(socket, :presences, presence)}
+    else
+      {:noreply, stream_insert(socket, :presences, presence)}
+    end
   end
 end
