@@ -1,4 +1,5 @@
 defmodule NeighborlyWeb.IncidentLive.Show do
+  alias NeighborlyWeb.Presence
   use NeighborlyWeb, :live_view
 
   alias Neighborly.Incidents
@@ -17,9 +18,19 @@ defmodule NeighborlyWeb.IncidentLive.Show do
   end
 
   def handle_params(%{"id" => id}, _uri, socket) do
+    %{current_user: current_user} = socket.assigns
+
     if connected?(socket) do
       Incidents.subscribe(id)
+
+      if current_user do
+        Presence.track_user(id, current_user)
+
+        Presence.subscribe(id)
+      end
     end
+
+    presences = Presence.list_users(id)
 
     incident = Incidents.get_incident!(id)
 
@@ -29,6 +40,7 @@ defmodule NeighborlyWeb.IncidentLive.Show do
       socket
       |> assign(:incident, incident)
       |> stream(:responses, responses)
+      |> stream(:presences, presences)
       |> assign(:response_count, Enum.count(responses))
       |> assign(:page_title, incident.name)
       |> assign_async(:urgent_incidents, fn ->
@@ -87,10 +99,25 @@ defmodule NeighborlyWeb.IncidentLive.Show do
         </div>
         <div class="right">
           <.urgent_incidents incidents={@urgent_incidents} />
+          <.onlookers :if={@current_user} presences={@streams.presences} />
         </div>
       </div>
       <.back navigate={~p"/incidents"}>All Incidents</.back>
     </div>
+    """
+  end
+
+  def onlookers(assigns) do
+    ~H"""
+    <section>
+      <h4>Onlookers</h4>
+      <ul class="presences" id="onlookers" phx-update="stream">
+        <li :for={{dom_id, %{id: username, metas: metas}} <- @presences} id={dom_id}>
+          <.icon name="hero-user-circle-solid" class="w-5 h-5" />
+          {username} ({length(metas)})
+        </li>
+      </ul>
+    </section>
     """
   end
 
@@ -186,5 +213,17 @@ defmodule NeighborlyWeb.IncidentLive.Show do
 
   def handle_info({:incident_updated, incident}, socket) do
     {:noreply, assign(socket, :incident, incident)}
+  end
+
+  def handle_info({:user_joined, presence}, socket) do
+    {:noreply, stream_insert(socket, :presences, presence)}
+  end
+
+  def handle_info({:user_left, presence}, socket) do
+    if presence.metas == [] do
+      {:noreply, stream_delete(socket, :presences, presence)}
+    else
+      {:noreply, stream_insert(socket, :presences, presence)}
+    end
   end
 end

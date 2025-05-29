@@ -12,6 +12,7 @@ defmodule Neighborly.Application do
       Neighborly.Repo,
       {DNSCluster, query: Application.get_env(:neighborly, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: Neighborly.PubSub},
+      NeighborlyWeb.Presence,
       # Start the Finch HTTP client for sending emails
       {Finch, name: Neighborly.Finch},
       # Start a worker by calling: Neighborly.Worker.start_link(arg)
