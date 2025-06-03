@@ -42,7 +42,9 @@ defmodule NeighborlyWeb.UserLive.Registration do
         />
 
         <:actions>
-          <.button phx-disable-with="Creating account..." class="w-full">Create an account</.button>
+          <.button phx-disable-with="Creating account..." class="w-full register">
+            Create an account
+          </.button>
         </:actions>
       </.simple_form>
     </div>

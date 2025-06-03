@@ -6,6 +6,15 @@
 
 @layer components {
 
+
+.login {
+    @apply text-white bg-gradient-to-r from-blue-400 to-emerald-400 hover:bg-gradient-to-l hover:from-blue-400 hover:to-emerald-400;
+}
+
+.register {
+    @apply text-white bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500 hover:bg-gradient-to-l hover:from-rose-400 hover:via-fuchsia-500 hover:to-indigo-500;
+}
+
   /* Tips */
 
   .tips h1 {

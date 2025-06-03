@@ -36,44 +36,50 @@ defmodule NeighborlyWeb.AdminIncidentLive.Index do
           </.link>
         </:actions>
       </.header>
-      <.table
-        id="incidents"
-        rows={@streams.incidents}
-        row_click={fn {_, incident} -> JS.navigate(~p"/incidents/#{incident}") end}
-      >
-        <:col :let={{_dom_id, incident}} label="Name">
-          <.link navigate={~p"/incidents/#{incident}"}>
-            {incident.name}
-          </.link>
-        </:col>
-        <:col :let={{_dom_id, incident}} label="Status">
-          <.badge status={incident.status} />
-        </:col>
-        <:col :let={{_dom_id, incident}} label="Priority">
-          {incident.priority}
-        </:col>
-        <:col :let={{_dom_id, incident}} label="Heroic Responder #">
-          {incident.heroic_response_id}
-        </:col>
-        <:action :let={{_dom_id, incident}}>
-          <.link navigate={~p"/admin/incidents/#{incident}/edit"}>
-            Edit
-          </.link>
-        </:action>
-        <:action :let={{dom_id, incident}}>
-          <.link
-            phx-click={delete_and_hide(dom_id, incident)}
-            data-confirm="Do you want to delete it?"
-          >
-            <.icon name="hero-trash" class="w-4 h-4" /> Delete
-          </.link>
-        </:action>
-        <:action :let={{_dom_id, incident}}>
-          <.link phx-click="draw-response" phx-value-id={incident.id}>
-            Draw Response
-          </.link>
-        </:action>
-      </.table>
+
+      <div class="p-4 mt-4 bg-white rounded-xl overscroll-auto">
+        <.table
+          id="incidents"
+          rows={@streams.incidents}
+          row_click={fn {_, incident} -> JS.navigate(~p"/incidents/#{incident}") end}
+        >
+          <:col :let={{_dom_id, incident}} label="Name">
+            <.link navigate={~p"/incidents/#{incident}"} class="text-zinc-900 hover:text-zinc-600">
+              {incident.name}
+            </.link>
+          </:col>
+          <:col :let={{_dom_id, incident}} label="Status">
+            <.badge status={incident.status} />
+          </:col>
+          <:col :let={{_dom_id, incident}} label="Priority">
+            <span class="inline-flex items-center px-2 py-1 text-xs font-medium rounded-md bg-zinc-50 text-zinc-600 ring-1 ring-inset ring-zinc-500/10">
+              {incident.priority}
+            </span>
+          </:col>
+          <:col :let={{_dom_id, incident}} label="Response#">
+            {incident.heroic_response_id}
+          </:col>
+          <:action :let={{_dom_id, incident}}>
+            <.link navigate={~p"/admin/incidents/#{incident}/edit"} class="button">
+              Edit
+            </.link>
+          </:action>
+          <:action :let={{dom_id, incident}}>
+            <.link
+              phx-click={delete_and_hide(dom_id, incident)}
+              data-confirm="Do you want to delete it?"
+              class="button"
+            >
+              <.icon name="hero-trash" class="w-4 h-4" /> Delete
+            </.link>
+          </:action>
+          <:action :let={{_dom_id, incident}}>
+            <.link phx-click="draw-response" phx-value-id={incident.id} class="button">
+              Draw Response
+            </.link>
+          </:action>
+        </.table>
+      </div>
     </div>
     """
   end

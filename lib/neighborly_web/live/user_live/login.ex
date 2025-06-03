@@ -3,19 +3,25 @@ defmodule NeighborlyWeb.UserLive.Login do
 
   def render(assigns) do
     ~H"""
-    <div class="mx-auto max-w-sm">
-      <.header class="text-center">
+    <div class="max-w-sm mx-auto">
+      <.header class="text-lg text-center">
         Log in to account
         <:subtitle>
           Don't have an account?
-          <.link navigate={~p"/users/register"} class="font-semibold text-brand hover:underline">
+          <.link navigate={~p"/users/register"} class="font-semibold text-violet-600 hover:underline">
             Sign up
           </.link>
           for an account now.
         </:subtitle>
       </.header>
 
-      <.simple_form for={@form} id="login_form" action={~p"/users/log-in"} phx-update="ignore">
+      <.simple_form
+        for={@form}
+        id="login_form"
+        action={~p"/users/log-in"}
+        phx-update="ignore"
+        class=""
+      >
         <.input field={@form[:email]} type="email" label="Email" autocomplete="username" required />
         <.input
           field={@form[:password]}
@@ -32,7 +38,7 @@ defmodule NeighborlyWeb.UserLive.Login do
           </.link>
         </:actions>
         <:actions>
-          <.button class="w-full">
+          <.button class="w-full login">
             Log in <span aria-hidden="true">→</span>
           </.button>
         </:actions>
