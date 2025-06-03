@@ -6,7 +6,7 @@ defmodule NeighborlyWeb.CustomComponets do
   def badge(assigns) do
     ~H"""
     <div class={[
-      "inline-block px-2 sm:px-3 sm:py-1 py-[2px] text-xs sm:text-xs/[8px] font-medium capitalize sm:uppercase rounded-xl text-white",
+      "inline-block px-2 sm:px-3 py-[2px] text-xs font-medium capitalize sm:uppercase rounded-xl text-white",
       @status == :resolved && "bg-lime-600",
       @status == :pending && "bg-amber-600",
       @status == :canceled && "bg-gray-600"

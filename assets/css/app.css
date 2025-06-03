@@ -11,8 +11,20 @@
     @apply text-white bg-gradient-to-r from-blue-400 to-emerald-400 hover:bg-gradient-to-l hover:from-blue-400 hover:to-emerald-400;
 }
 
+.forgot {
+    @apply text-white bg-gradient-to-r from-blue-600 to-emerald-600 hover:bg-gradient-to-l hover:from-blue-600 hover:to-emerald-600;
+}
+
+.logout {
+    @apply text-white bg-gradient-to-r from-blue-500 to-emerald-500 hover:bg-gradient-to-l hover:from-blue-500 hover:to-emerald-500;
+}
+
 .register {
     @apply text-white bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500 hover:bg-gradient-to-l hover:from-rose-400 hover:via-fuchsia-500 hover:to-indigo-500;
+}
+
+.settings {
+    @apply text-white bg-gradient-to-r from-rose-600 via-fuchsia-600 to-indigo-600 hover:bg-gradient-to-l hover:from-rose-600 hover:via-fuchsia-600 hover:to-indigo-600;
 }
 
   /* Tips */

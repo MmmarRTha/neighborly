@@ -473,7 +473,7 @@ defmodule NeighborlyWeb.CoreComponents do
       end
 
     ~H"""
-    <div class="overflow-y-auto sm:overflow-visible">
+    <div class="overflow-y-auto md:overflow-visible">
       <table class="w-full">
         <thead class="text-sm leading-6 text-left text-zinc-500">
           <tr>

@@ -36,7 +36,7 @@ defmodule NeighborlyWeb.UserLive.Settings do
             required
           />
           <:actions>
-            <.button phx-disable-with="Changing...">Change Email</.button>
+            <.button phx-disable-with="Changing..." class="settings">Change Email</.button>
           </:actions>
         </.simple_form>
       </div>
@@ -81,7 +81,7 @@ defmodule NeighborlyWeb.UserLive.Settings do
             required
           />
           <:actions>
-            <.button phx-disable-with="Changing...">Change Password</.button>
+            <.button phx-disable-with="Changing..." class="settings">Change Password</.button>
           </:actions>
         </.simple_form>
       </div>

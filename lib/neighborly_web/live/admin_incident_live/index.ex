@@ -60,22 +60,32 @@ defmodule NeighborlyWeb.AdminIncidentLive.Index do
             {incident.heroic_response_id}
           </:col>
           <:action :let={{_dom_id, incident}}>
-            <.link navigate={~p"/admin/incidents/#{incident}/edit"} class="button">
-              Edit
+            <.link
+              navigate={~p"/admin/incidents/#{incident}/edit"}
+              class="inline-flex items-center px-3 py-2 m-0 text-sm font-medium text-indigo-600 transition-colors duration-200 rounded-md hover:text-indigo-900 hover:bg-indigo-400"
+            >
+              <.icon name="hero-pencil-square" class="w-4 h-4 mr-1" />
+              <span class="hidden sm:inline">Edit</span>
             </.link>
           </:action>
           <:action :let={{dom_id, incident}}>
             <.link
               phx-click={delete_and_hide(dom_id, incident)}
               data-confirm="Do you want to delete it?"
-              class="button"
+              class="inline-flex items-center px-3 py-2 m-0 text-sm font-medium text-red-600 transition-colors duration-200 rounded-md hover:text-red-900 hover:bg-red-50"
             >
-              <.icon name="hero-trash" class="w-4 h-4" /> Delete
+              <.icon name="hero-trash" class="w-4 h-4 mr-1" />
+              <span class="hidden sm:inline">Delete</span>
             </.link>
           </:action>
           <:action :let={{_dom_id, incident}}>
-            <.link phx-click="draw-response" phx-value-id={incident.id} class="button">
-              Draw Response
+            <.link
+              phx-click="draw-response"
+              phx-value-id={incident.id}
+              class="inline-flex items-center px-3 py-2 m-0 text-sm font-medium text-green-600 transition-colors duration-200 rounded-md hover:text-green-900 hover:bg-green-50"
+            >
+              <.icon name="hero-sparkles" class="w-4 h-4 mr-1" />
+              <span class="hidden sm:inline">Draw Response</span>
             </.link>
           </:action>
         </.table>
