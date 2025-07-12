@@ -11,47 +11,47 @@
     <script defer phx-track-static type="text/javascript" src={~p"/assets/app.js"}>
     </script>
   </head>
-  <body class="min-h-screen bg-gradient-to-r from-rose-300 to-orange-200">
+  <body class="min-h-screen bg-light">
     <div class="relative">
       <!-- User menu -->
       <div class="absolute top-0 right-0 z-10 w-full">
         <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
-          <div class="flex items-center justify-end h-16">
+          <div class="flex justify-end items-center h-16">
             <%= if @current_user do %>
-              <div class="flex items-center gap-4">
+              <div class="flex gap-4 items-center">
                 <div class="sm:text-sm text-md text-zinc-600">
                   <span class="mr-16 font-medium sm:mr-5 text-zinc-900">
                     Hi {@current_user.username}
                   </span>
                   <span class="hidden sm:inline text-zinc-500">{@current_user.email}</span>
                 </div>
-                <div class="flex items-center gap-3">
+                <div class="flex gap-3 items-center">
                   <.link
                     href={~p"/users/settings"}
-                    class="inline-flex items-center justify-center px-4 py-2 text-sm font-semibold transition-colors duration-200 rounded-lg shadow-sm settings"
+                    class="inline-flex justify-center items-center px-4 py-2 text-sm font-semibold rounded-lg shadow-sm transition-colors duration-200 settings"
                   >
                     Settings
                   </.link>
                   <.link
                     href={~p"/users/log-out"}
                     method="delete"
-                    class="inline-flex items-center justify-center px-4 py-2 text-sm font-semibold transition-colors duration-200 rounded-lg shadow-sm logout"
+                    class="inline-flex justify-center items-center px-4 py-2 text-sm font-semibold rounded-lg shadow-sm transition-colors duration-200 logout"
                   >
                     Log out
                   </.link>
                 </div>
               </div>
             <% else %>
-              <div class="flex items-center gap-3">
+              <div class="flex gap-3 items-center">
                 <.link
                   href={~p"/users/register"}
-                  class="inline-flex items-center justify-center px-4 py-2 text-sm font-semibold transition-colors duration-200 rounded-lg shadow-sm register"
+                  class="inline-flex justify-center items-center px-4 py-2 text-sm font-semibold rounded-lg shadow-sm transition-colors duration-200 register"
                 >
                   Register
                 </.link>
                 <.link
                   href={~p"/users/log-in"}
-                  class="inline-flex items-center justify-center px-4 py-2 text-sm font-semibold transition-colors duration-200 rounded-lg shadow-sm ring-1 ring-inset ring-zinc-300 login"
+                  class="inline-flex justify-center items-center px-4 py-2 text-sm font-semibold rounded-lg ring-1 ring-inset shadow-sm transition-colors duration-200 ring-zinc-300 login"
                 >
                   Log in
                 </.link>

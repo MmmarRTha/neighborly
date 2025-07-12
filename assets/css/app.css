@@ -6,6 +6,9 @@
 
 @layer components {
 
+.bg-light {
+    background-image: repeating-linear-gradient(45deg, rgb(254,252,246) 0px, rgb(254,252,246) 10px,transparent 10px, transparent 11px),repeating-linear-gradient(135deg, rgb(254,252,246) 0px, rgb(254,252,246) 10px,transparent 10px, transparent 11px),linear-gradient(90deg, rgb(249,180,255),rgb(249,180,255));
+}
 
 .login {
     @apply text-white bg-gradient-to-r from-blue-400 to-emerald-400 hover:bg-gradient-to-l hover:from-blue-400 hover:to-emerald-400;
