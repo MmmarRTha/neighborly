@@ -13,13 +13,6 @@ Neighborly is a community-driven platform that enables neighbors to connect, sha
 - 📱 **Responsive UI** with Tailwind CSS
 ---
 
-## 🖼️ Screenshots
-
-![Home Page](assets/screenshots/home.png)
-![Community Board](assets/screenshots/board.png)
-
----
-
 ## 🛠️ Tech Stack
 - **Elixir** & **Phoenix** (LiveView)
 - **Tailwind CSS**
