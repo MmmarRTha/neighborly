@@ -5,7 +5,7 @@ defmodule NeighborlyWeb.UserLive.ForgotPassword do
 
   def render(assigns) do
     ~H"""
-    <div class="mx-auto max-w-sm">
+    <div class="max-w-sm mx-auto">
       <.header class="text-center">
         Forgot your password?
         <:subtitle>We'll send a password reset link to your inbox</:subtitle>
@@ -20,12 +20,12 @@ defmodule NeighborlyWeb.UserLive.ForgotPassword do
           required
         />
         <:actions>
-          <.button phx-disable-with="Sending..." class="w-full">
+          <.button phx-disable-with="Sending..." class="w-full forgot">
             Send password reset instructions
           </.button>
         </:actions>
       </.simple_form>
-      <p class="text-center text-sm mt-4">
+      <p class="mt-4 text-sm text-center">
         <.link href={~p"/users/register"}>Register</.link>
         | <.link href={~p"/users/log-in"}>Log in</.link>
       </p>

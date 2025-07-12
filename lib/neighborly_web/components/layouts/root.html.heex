@@ -11,48 +11,60 @@
     <script defer phx-track-static type="text/javascript" src={~p"/assets/app.js"}>
     </script>
   </head>
-  <body class="bg-gradient-to-r from-rose-300 to-orange-200">
-    <ul class="relative z-10 flex items-center justify-end gap-4 px-4 sm:px-6 lg:px-8">
-      <%= if @current_user do %>
-        <li class="text-[0.8125rem] leading-6 text-zinc-900">
-          Hello {@current_user.username}, {@current_user.email}
-        </li>
-        <li>
-          <.link
-            href={~p"/users/settings"}
-            class="text-[0.8125rem] leading-6 text-zinc-900 font-semibold hover:text-zinc-700"
-          >
-            Settings
-          </.link>
-        </li>
-        <li>
-          <.link
-            href={~p"/users/log-out"}
-            method="delete"
-            class="text-[0.8125rem] leading-6 text-zinc-900 font-semibold hover:text-zinc-700"
-          >
-            Log out
-          </.link>
-        </li>
-      <% else %>
-        <li>
-          <.link
-            href={~p"/users/register"}
-            class="text-[0.8125rem] leading-6 text-zinc-900 font-semibold hover:text-zinc-700"
-          >
-            Register
-          </.link>
-        </li>
-        <li>
-          <.link
-            href={~p"/users/log-in"}
-            class="text-[0.8125rem] leading-6 text-zinc-900 font-semibold hover:text-zinc-700"
-          >
-            Log in
-          </.link>
-        </li>
-      <% end %>
-    </ul>
-    {@inner_content}
+  <body class="min-h-screen bg-light">
+    <div class="relative">
+      <!-- User menu -->
+      <div class="absolute top-0 right-0 z-10 w-full">
+        <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
+          <div class="flex justify-end items-center h-16">
+            <%= if @current_user do %>
+              <div class="flex gap-4 items-center">
+                <div class="sm:text-sm text-md text-zinc-600">
+                  <span class="mr-16 font-medium sm:mr-5 text-zinc-900">
+                    Hi {@current_user.username}
+                  </span>
+                  <span class="hidden sm:inline text-zinc-500">{@current_user.email}</span>
+                </div>
+                <div class="flex gap-3 items-center">
+                  <.link
+                    href={~p"/users/settings"}
+                    class="inline-flex justify-center items-center px-4 py-2 text-sm font-semibold rounded-lg shadow-sm transition-colors duration-200 settings"
+                  >
+                    Settings
+                  </.link>
+                  <.link
+                    href={~p"/users/log-out"}
+                    method="delete"
+                    class="inline-flex justify-center items-center px-4 py-2 text-sm font-semibold rounded-lg shadow-sm transition-colors duration-200 logout"
+                  >
+                    Log out
+                  </.link>
+                </div>
+              </div>
+            <% else %>
+              <div class="flex gap-3 items-center">
+                <.link
+                  href={~p"/users/register"}
+                  class="inline-flex justify-center items-center px-4 py-2 text-sm font-semibold rounded-lg shadow-sm transition-colors duration-200 register"
+                >
+                  Register
+                </.link>
+                <.link
+                  href={~p"/users/log-in"}
+                  class="inline-flex justify-center items-center px-4 py-2 text-sm font-semibold rounded-lg ring-1 ring-inset shadow-sm transition-colors duration-200 ring-zinc-300 login"
+                >
+                  Log in
+                </.link>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      
+<!-- Main content -->
+      <div class="pt-16">
+        {@inner_content}
+      </div>
+    </div>
   </body>
 </html>

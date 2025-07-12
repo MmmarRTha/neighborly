@@ -1,16 +1,84 @@
-<header class="px-4 sm:px-6 lg:px-8">
-  <div class="flex items-center justify-between py-3 text-sm border-b border-zinc-100">
-    <div class="flex items-center gap-4 text-2xl text-center">
-      <a href="/" class="flex items-center gap-2">
-        <img src={~p"/images/neighborly.png"} width="98" />
-        <span class="sm:inline">Neighborly</span>
-      </a>
+<header class="bg-white shadow-sm">
+  <div class="px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between py-4">
+      <div class="flex items-center gap-4">
+        <a href="/" class="flex items-center gap-2 transition-opacity hover:opacity-80">
+          <img src={~p"/images/neighborly.png"} width="98" class="w-auto h-14" />
+          <span class="hidden text-xl font-semibold text-zinc-900 sm:inline">Neighborly</span>
+        </a>
+      </div>
+
+      <div class="sm:hidden">
+        <button
+          type="button"
+          class="text-zinc-600 hover:text-zinc-900"
+          phx-click={JS.toggle(to: "#mobile-menu")}
+        >
+          <svg
+            class="w-6 h-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+            />
+          </svg>
+        </button>
+      </div>
+
+      <nav class="items-center hidden gap-6 sm:flex">
+        <.link
+          navigate={~p"/incidents"}
+          class="transition-colors text-zinc-600 hover:text-cyan-500"
+        >
+          Incidents
+        </.link>
+        <.link navigate={~p"/effort"} class="transition-colors text-zinc-600 hover:text-cyan-500">
+          Effort
+        </.link>
+        <.link
+          navigate={~p"/admin/incidents"}
+          class="transition-colors text-zinc-600 hover:text-cyan-500"
+        >
+          Admin
+        </.link>
+        <.link
+          navigate={~p"/categories"}
+          class="transition-colors text-zinc-600 hover:text-cyan-500"
+        >
+          Categories
+        </.link>
+      </nav>
     </div>
-    <div class="flex items-center gap-4 text-lg font-semibold leading-6 text-zinc-900">
-      <.link navigate={~p"/incidents"}>Incidents</.link>
-      <.link navigate={~p"/effort"}>Effort</.link>
-      <.link navigate={~p"/admin/incidents"}>Admin</.link>
-      <.link navigate={~p"/categories"}>Categories</.link>
+
+    <div id="mobile-menu" class="hidden pb-4 sm:hidden">
+      <nav class="flex flex-col space-y-3">
+        <.link
+          navigate={~p"/incidents"}
+          class="transition-colors text-zinc-600 hover:text-cyan-500"
+        >
+          Incidents
+        </.link>
+        <.link navigate={~p"/effort"} class="transition-colors text-zinc-600 hover:text-cyan-500">
+          Effort
+        </.link>
+        <.link
+          navigate={~p"/admin/incidents"}
+          class="transition-colors text-zinc-600 hover:text-cyan-500"
+        >
+          Admin
+        </.link>
+        <.link
+          navigate={~p"/categories"}
+          class="transition-colors text-zinc-600 hover:text-cyan-500"
+        >
+          Categories
+        </.link>
+      </nav>
     </div>
   </div>
 </header>
