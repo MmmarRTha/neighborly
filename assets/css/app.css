@@ -11,7 +11,7 @@
 }
 
 .login {
-    @apply text-white bg-gradient-to-r from-blue-400 to-emerald-400 hover:bg-gradient-to-l hover:from-blue-400 hover:to-emerald-400;
+    @apply text-white bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 transition-all duration-200 shadow-md hover:shadow-lg;
 }
 
 .forgot {
@@ -19,15 +19,15 @@
 }
 
 .logout {
-    @apply text-white bg-gradient-to-r from-blue-500 to-emerald-500 hover:bg-gradient-to-l hover:from-blue-500 hover:to-emerald-500;
+    @apply text-white bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 transition-all duration-200 shadow-md hover:shadow-lg;
 }
 
 .register {
-    @apply text-white bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500 hover:bg-gradient-to-l hover:from-rose-400 hover:via-fuchsia-500 hover:to-indigo-500;
+    @apply text-white bg-gradient-to-r from-emerald-400 to-teal-600 hover:from-emerald-600 hover:to-teal-700 transition-all duration-200 shadow-md hover:shadow-lg;
 }
 
 .settings {
-    @apply text-white bg-gradient-to-r from-rose-600 via-fuchsia-600 to-indigo-600 hover:bg-gradient-to-l hover:from-rose-600 hover:via-fuchsia-600 hover:to-indigo-600;
+    @apply text-white bg-gradient-to-r from-emerald-400 to-teal-600 hover:from-emerald-600 hover:to-teal-700 transition-all duration-200 shadow-md hover:shadow-lg;
 }
 
   /* Tips */
