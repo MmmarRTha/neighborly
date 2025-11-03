@@ -6,6 +6,8 @@
 ## 🚀 Project Overview
 Neighborly is a community-driven platform that enables neighbors to connect, share resources, and collaborate in real time. Built for performance, scalability, and developer happiness, it leverages the power of Elixir and Phoenix LiveView for seamless, interactive user experiences.
 
+> **Note:** This project was created as a hands-on learning experience to deepen my understanding of Elixir and Phoenix LiveView. I built it by following the [Pragmatic Studio Phoenix course](https://pragmaticstudio.com/phoenix), learning by doing and implementing the concepts as I went.
+
 ---
 
 ## ✨ Features
